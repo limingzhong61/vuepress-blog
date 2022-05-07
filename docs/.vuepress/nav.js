@@ -3,15 +3,15 @@ module.exports = [
         text: 'JavaScript进阶',
         items: [
           {text: '框架的设计 jQuery源码分析', link: '/senior-js/jquery/'},
-          {text: '函数式编程 Underscore源码分析', link: '/senior-js/underscore/'},
-          {text: '模块化编程 自研模块加载器', link: '/senior-js/module/'},
+          {text: 'markdown', link: '/markdown/'},
+          {text: 'Java', link: '/JavaNote/'},
         ]
       },
       {
-        text: '单页应用开发',
+        text: 'Java',
         items: [
-          {text: '组件化开发 React专题', link: '/spa/react/'},
-          {text: '组件化开发 Vue专题', link: '/spa/vue/'},
+          {text: 'javaSE', link: '/JavaNote/javaSE/javaSE'},
+          {text: 'javaWeb', link: '/JavaNote/javaWeb/javaWeb'},
           {text: '现代前端工程实践方案 解锁webpack', link: '/spa/webpack/'},
         ]
       },
