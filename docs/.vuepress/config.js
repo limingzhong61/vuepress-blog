@@ -3,15 +3,16 @@ const path = require('path')
 const {
     sideBarTool
 } = require(path.join(__dirname, './utils/index.js'))
-
+ 
 // 需要排除的一些目录
 let unDirIncludes = ['node_modules', 'assets', 'public', '网络工程']
 // 只需要处理后缀的文件类型
 let SuffixIncludes = ['md', 'html']
 //使用方法生生成侧边栏
-let rootPath = "./docs/markdown"
-// 侧边栏
-let javaSidebar = sideBarTool.genSideBarGroupMy("./docs/JavaNote", unDirIncludes, SuffixIncludes, {})
+let rootPath = "./docs/md/markdown"
+// 侧边栏  
+// let javaSidebar = sideBarTool.genSideBarGroupMy("./docs/JavaNote", unDirIncludes, SuffixIncludes, {})
+// let jsSidebar = sideBarTool.genSideBarGroupMy("./docs/JSNote", unDirIncludes, SuffixIncludes, {})
 let genMarkDownSideBar = sideBarTool.genSideBarByFiles(rootPath, unDirIncludes, SuffixIncludes, {})
 module.exports = {
     title: '夕月',
@@ -32,37 +33,26 @@ module.exports = {
             target: '_blank',
             rel: 'noopener noreferrer'
         }
-    },
+    }, 
     themeConfig: {
         nav: require('./nav'),
-        sidebar: {
-            '/markdown/': genMarkDownSideBar,
-            '/JavaNote/': javaSidebar,
-            // '/JavaNote/': [{
-            //         title: 'javaSE',
-            //         collapsable: true,
-            //         //   sidebarDepth: 2,
-            //         path: '/JavaNote/javaSE/javaSE',
-            //         children: ['/JavaNote/javaSE/javaSE.md']
-            //     },
-            //     {
-            //         title: 'javaWeb',
-            //         collapsable: true,
-            //         //   sidebarDepth: 2,
-            //         children: ['/JavaNote/javaWeb/javaWeb.md']
-            //     }, {
-            //         title: 'SpringCloud',
-            //         collapsable: true,
-            //         //   sidebarDepth: 2,
-            //         children: ['/JavaNote/SpringCloud/SpringCloud.md', {
-            //             title: 'RabbitMQ',
-            //             collapsable: true,
-            //             //   sidebarDepth: 2,
-            //             children: ['/JavaNote/SpringCloud/RabbitMQ/RabbitMQ.md']
-            //         }]
-            //     }
-            // ],
-        }
+        sidebar: sideBarTool.genSideBarConfig() 
+        // sidebar: {
+        //     '/markdown/': genMarkDownSideBar,
+        //     '/JavaNote/': javaSidebar,
+        //     '/JSNote/':jsSidebar
+        // }
+        // sidebar: {
+        //     '/md/JavaNote/': [{
+        //         title: 'java',
+        //         collapsable: true,
+        //         children: [
+        //             '/md/JavaNote/javaSE/javaSE.md',
+        //             // '/senior-js/jquery/2',
+        //         ]
+        //     }],
+        // }
+
     },
     plugins: {
         '@vuepress/back-to-top': {},

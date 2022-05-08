@@ -1,9 +1,16 @@
 const PATH = require('path')
 const fs = require('fs')
 const cons = require('consolidate')
-
+const PRE_DIR_NAME = "./docs"
+const PRE_MD_DIR_NAME = "md"
+//导入文件的工具类
+// const path = require('path')
+// const {
+//     fileHelper
+// } = require(PATH.join(__dirname, './fileHelper.js'))
 // 字符串工具类
-const str = {
+
+const stringTool = {
     /**
      * 两个字符串是否相同
      * @param {String} string 第一个字符串
@@ -32,6 +39,15 @@ const str = {
             }
         }
         return false
+    },
+    /**
+     * 将 '\\' 和 '//'换为'/'(url格式)
+     * './docs\\python\\' -----> './docs/python/'
+     * @param {string} s 
+     * @returns {string} 格式化后的形式
+     */
+    pathSeparatorFormat(s) {
+        return s.replace(/\\/g, '/').replace(/\/\//g, '/')
     }
 }
 
@@ -55,7 +71,6 @@ function sortDir(a, b) {
         return 1
     }
 }
-
 // 文件助手
 const fileHelper = {
     /**
@@ -69,7 +84,7 @@ const fileHelper = {
         let filenameList = []
         fs.readdirSync(rpath).forEach((file) => {
             let fileInfo = fs.statSync(rpath + '\\' + file)
-            if (fileInfo.isFile() && !unDirIncludes.includes(file) && !str.contains(file, "img", true)) {
+            if (fileInfo.isFile() && !unDirIncludes.includes(file) && !stringTool.contains(file, "img", true)) {
                 // 只处理固定后缀的文件
                 if (SuffixIncludes.includes(file.split('.')[1])) {
                     //  过滤readme.md文件
@@ -110,8 +125,32 @@ const fileHelper = {
         })
         // console.log(result)
         return result
-    }
+    },
+    // /**
+    //  * 获取当前路径下的所有目录
+    //  * @param {String} myPath 当前的目录路径
+    //  * @param {Array} unDirIncludes 需要排除的某些目录(文件夹)
+    //  * @returns {Array} result 当前路径下的所有的目录
+    //  */
+    //  getCurrentSonDirNames: function getCurrentDirs(myPath = ".", unDirIncludes, ) {
+    //     // 获取目录数据
+    //     const items = fs.readdirSync(myPath)
+    //     let result = []
+    //     // 遍历目录中所有文件夹
+    //     items.map(item => {
+    //         let temp = PATH.join(myPath, item)
+    //         // isDirectory() 不接收任何参数,如果是目录(文件夹)返回true,否则返回false
+    //         // 如果是目录,且不包含如下目录
+    //         if (fs.statSync(temp).isDirectory() && !item.startsWith(".") && !unDirIncludes.includes(item)) {
+    //             result.push('/' + item + '/')
+    //             // result = result.concat(getAllDirs(temp, unDirIncludes))
+    //         }
+    //     })
+    //     // console.log(result)
+    //     return result
+    // }
 }
+
 
 // 侧边栏创建工具
 const sideBarTool = {
@@ -263,13 +302,14 @@ const sideBarTool = {
         if (!path.includes(".")) {
             return;
         }
-        let linkPath = path.replace("./docs", "")
+        let linkPath = path.replace(PRE_DIR_NAME, "")
         // 处理该目录下的.md文件
         let fileChildren = fileHelper.getAllFiles(path, unDirIncludes, SuffixIncludes)
         linkPath = linkPath.replace(/\\/g, '/').replace(/\/\//g, '/')
         let allChildren = []
         if (fileChildren.length > 0) {
             for (var i = 0; i < fileChildren.length; i++) {
+
                 fileChildren[i] = linkPath + fileChildren[i] + ".md"
                 allChildren.push(fileChildren[i])
             }
@@ -301,7 +341,7 @@ const sideBarTool = {
         // console.log(dirChildren)
         // console.log("children")
         // console.log(children)
-        let dirname = path.replace("./docs", "")
+        let dirname = path.replace(PRE_DIR_NAME, "")
         // let titleTemp = item.replace(RootPath + '\\view', "")
         dirname = dirname.replace(/\\/g, '/')
         dirname = dirname.replace(/\/\//g, '/')
@@ -320,12 +360,66 @@ const sideBarTool = {
             children: allChildren
         }
         return Obj
+    },
+    /**
+     * // 侧边栏  
+let javaSidebar = sideBarTool.genSideBarGroupMy("./docs/JavaNote", unDirIncludes, SuffixIncludes, {})
+let jsSidebar = sideBarTool.genSideBarGroupMy("./docs/JSNote", unDirIncludes, SuffixIncludes, {})
+     * @param {string} path 
+        return：最终的侧边栏数据
+        sidebar: {
+            '/markdown/': genMarkDownSideBar,
+            '/JSNote/': jsSidebar,
+            '/JavaNote/': [{
+                    "title": "java",
+                    "collapsable": true,
+                    "sidebarDepth": 2,
+                    "children": ["/view/"]
+                },
+                {
+                    "title": "html",
+                    "collapsable": true,
+                    "sidebarDepth": 2,
+                    "children": [
+                        ["/view/html/day1", "day1"],
+                        {
+                            title: '回调对象设计',
+                            collapsable: true,
+                            children: [
+                                '/senior-js/jquery/3',
+                                '/senior-js/jquery/4',
+                            ]
+                        }, ,
+                        ["/view/html/day3", "day3"],
+                    ]
+                }
+            ]
+        }        
+        
+     */
+    genSideBarConfig(path = PRE_DIR_NAME + "/md") {
+        // 获取目录数据
+        const items = fs.readdirSync(path)
+        let sideBarConfig = {}
+        // 遍历目录中所有文件夹
+        const prePath = '/' + PRE_MD_DIR_NAME
+        items.map(item => {
+            let temp = PATH.join(path, item)
+            // isDirectory() 不接收任何参数,如果是目录(文件夹)返回true,否则返回false
+            // 如果是目录,且不包含如下目录
+            if (fs.statSync(temp).isDirectory() && !item.startsWith(".") && !unDirIncludes.includes(item)) {
+                let itemPath = prePath + '/' + item + '/'
+                let dirFullName = path + '\\' + item + '\\'
+                let itemConfig = sideBarTool.genSideBarGroupMy(dirFullName, unDirIncludes, SuffixIncludes, {})
+                sideBarConfig[itemPath] = itemConfig
+            }
+        })
+        return sideBarConfig
     }
 }
 
 module.exports = {
-    str,
-    fileHelper,
+    stringTool,
     sideBarTool
 }
 
@@ -340,5 +434,9 @@ let rootPath = "./docs/markdown"
 // console.log(sidebar)
 // let genSideBarVar =sideBarTool.genSideBarByFiles(rootPath, unDirIncludes, SuffixIncludes, {})
 // console.log(genSideBarVar)
-let javaSidebar = sideBarTool.genSideBarGroupMy("./docs/JavaNote", unDirIncludes, SuffixIncludes, {})
-console.log(JSON.stringify(javaSidebar))
+// let javaSidebar = sideBarTool.genSideBarGroupMy("./docs/JavaNote", unDirIncludes, SuffixIncludes, {})
+// // console.log(JSON.stringify(javaSidebar))
+// let jsSidebar = sideBarTool.genSideBarGroupMy("./docs/JSNote", unDirIncludes, SuffixIncludes, {})
+// console.log(JSON.stringify(jsSidebar))
+let sideBarConfig = sideBarTool.genSideBarConfig()
+console.log(JSON.stringify(sideBarConfig))
