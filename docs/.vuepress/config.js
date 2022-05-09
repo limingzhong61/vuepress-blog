@@ -2,7 +2,7 @@
 const path = require('path')
 const {
     sideBarTool
-} = require(path.join(__dirname, './utils/index.js'))
+} = require(path.join(__dirname, './utils/sideBarTool.js'))
  
 // 需要排除的一些目录
 let unDirIncludes = ['node_modules', 'assets', 'public', '网络工程']
@@ -10,6 +10,7 @@ let unDirIncludes = ['node_modules', 'assets', 'public', '网络工程']
 let SuffixIncludes = ['md', 'html']
 //使用方法生生成侧边栏
 let rootPath = "./docs/md/markdown"
+rootPath = "./docs"
 // 侧边栏  
 // let javaSidebar = sideBarTool.genSideBarGroupMy("./docs/JavaNote", unDirIncludes, SuffixIncludes, {})
 // let jsSidebar = sideBarTool.genSideBarGroupMy("./docs/JSNote", unDirIncludes, SuffixIncludes, {})
@@ -35,6 +36,8 @@ module.exports = {
         }
     }, 
     themeConfig: {
+        search: true,
+        searchMaxSuggestions: 10,
         nav: require('./nav'),
         sidebar: sideBarTool.genSideBarConfig() 
         // sidebar: {
@@ -56,7 +59,8 @@ module.exports = {
     },
     plugins: {
         '@vuepress/back-to-top': {},
-        '@vuepress/medium-zoom': {},
+        // '@vuepress/medium-zoom': {},
+        'vuepress-plugin-code-copy': {},
         '@vssue/vuepress-plugin-vssue': {
             // 设置 `platform` 而不是 `api`
             platform: 'github',
@@ -80,13 +84,14 @@ module.exports = {
         //     search: true, //默认false
         //     searchMaxSuggestions: 10 // 默认是5
         // }
-        // '@vuepress/medium-zoom': {
-        //     selector: 'img.zoom-custom-imgs',
-        //     // medium-zoom options here
-        //     // See: https://github.com/francoischalifour/medium-zoom#options
-        //     options: {
-        //       margin: 16
-        //     }
-        //   }
+        
+        '@vuepress/medium-zoom': {
+            selector: 'img',
+            // medium-zoom options here
+            // See: https://github.com/francoischalifour/medium-zoom#options
+            options: {
+              margin: 16
+            }
+          }
     }
 }
