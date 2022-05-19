@@ -3,7 +3,7 @@ const path = require('path')
 const {
     sideBarTool
 } = require(path.join(__dirname, './utils/sideBarTool.js'))
- 
+
 // 需要排除的一些目录
 let unDirIncludes = ['node_modules', 'assets', 'public', '网络工程']
 // 只需要处理后缀的文件类型
@@ -17,7 +17,7 @@ rootPath = "./docs"
 let genMarkDownSideBar = sideBarTool.genSideBarByFiles(rootPath, unDirIncludes, SuffixIncludes, {})
 module.exports = {
     title: '夕月',
-    description: '~从后端到全栈开发~和夕月一起学~',
+    description: '从后端到全栈开发',
     head: [
         ['link', {
             rel: 'icon',
@@ -30,27 +30,35 @@ module.exports = {
     ],
     markdown: {
         lineNumbers: true,
+        // markdown-it-anchor 的选项
+        // anchor: {
+        //     permalink: false
+        // },
+        // markdown-it-toc 的选项
+        toc: {
+            includeLevel: [1, 2, 3, 4, 5]
+        },
+        extendMarkdown: md => {
+            md.use(require("markdown-it-disable-url-encode"));
+        },
         externalLinks: {
             target: '_blank',
             rel: 'noopener noreferrer'
         }
-    }, 
+    },
     themeConfig: {
         search: true,
-        searchMaxSuggestions: 10,
+        searchMaxSuggestions: 15,
         nav: require('./nav'),
-        sidebar: sideBarTool.genSideBarConfig() 
+        sidebar: sideBarTool.genSideBarConfig()
+        
         // sidebar: {
-        //     '/markdown/': genMarkDownSideBar,
-        //     '/JavaNote/': javaSidebar,
-        //     '/JSNote/':jsSidebar
-        // }
-        // sidebar: {
-        //     '/md/JavaNote/': [{
-        //         title: 'java',
+        //     '/md/Markdown/': [{
+        //         title: 'Markdown',
         //         collapsable: true,
+        //         sidebarDepth: 3,    // 可选的, 默认值是 1
         //         children: [
-        //             '/md/JavaNote/javaSE/javaSE.md',
+        //             '/md/Markdown/Markdown.md',
         //             // '/senior-js/jquery/2',
         //         ]
         //     }],
@@ -58,6 +66,7 @@ module.exports = {
 
     },
     plugins: {
+        '@vuepress/nprogress': {},
         '@vuepress/back-to-top': {},
         // '@vuepress/medium-zoom': {},
         'vuepress-plugin-code-copy': {},
@@ -84,14 +93,14 @@ module.exports = {
         //     search: true, //默认false
         //     searchMaxSuggestions: 10 // 默认是5
         // }
-        
+
         '@vuepress/medium-zoom': {
             selector: 'img',
             // medium-zoom options here
             // See: https://github.com/francoischalifour/medium-zoom#options
             options: {
-              margin: 16
+                margin: 16
             }
-          }
+        }
     }
 }

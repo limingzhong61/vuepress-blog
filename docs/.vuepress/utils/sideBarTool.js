@@ -152,17 +152,39 @@ const sideBarTool = {
         console.log(sidebars)
         return sidebars
     },
-    genSideBarGroupMy: (RootPath, unDirIncludes, SuffixIncludes, {
-        title = '',
-        children = [''],
-        collapsable = true,
-        sidebarDepth = 2
-    }) => {
+    genSideBarGroupMy: (RootPath, unDirIncludes,) => {
         // 准备接收
         let sidebars = []
+        //
+        // 处理文件
+        // 处理该目录下的.md文件
+        let linkPath = RootPath.replace(PRE_DIR_NAME, "")
+        let fileChildren = fileHelper.getAllMdFiles(RootPath, unDirIncludes, SuffixIncludes)
+        linkPath = stringTool.pathSeparatorFormat(linkPath)
+        
+        // let allChildren = []
+        if (fileChildren.length > 0) {
+            for (var i = 0; i < fileChildren.length; i++) {
+                let title = fileChildren[i]
+                fileChildren[i] = linkPath + fileChildren[i] + ".md"
+                let children = [fileChildren[i]]
+                children.push()
+                let Obj = {
+                    title: title,
+                    collapsable: true,
+                    sidebarDepth: 2,
+                    children: children
+                }
+                sidebars.push(Obj)
+            }
+        }
+
+
+
         let allDirs = fileHelper.getAllDirs(RootPath, unDirIncludes)
         // console.log("allDirs:")
         // console.log(allDirs)
+        
         allDirs.forEach((item) => {
             let sidebarObj = sideBarTool.genSideBarRecur(item)
             if (!sidebarObj) {
@@ -173,6 +195,13 @@ const sideBarTool = {
         // console.log(JSON.stringify(sidebars))
         return sidebars
     },
+    /*{
+        title = '',
+        children = [''],
+        collapsable = true,
+        sidebarDepth = 2
+     }
+    */
     genSideBarRecur(path) {
         // item 格式：./docs/JavaNote\javaSE\
         // console.log(item)
@@ -232,6 +261,9 @@ const sideBarTool = {
         // console.log(dirNames.length)
         // console.log(dirNames[dirNames.length-1])
         // console.log(title)
+        if(allChildren.length === 0){
+            return null;
+        }
         let Obj = {
             title: title,
             collapsable: true,
