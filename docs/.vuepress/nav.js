@@ -13,8 +13,8 @@ module.exports = [
     items: [{
       text: 'java基础',
       items: [{
-          text: 'javaSE',
-          link: '/md/JavaNote/javaSE/javaSE'
+          text: 'java基础',
+          link: '/md/JavaNote/java基础/java基础'
         },
         {
           text: 'OnJava8',
@@ -123,9 +123,6 @@ module.exports = [
     },{
       text: 'nginx',
       link: '/md/nginx/nginx'
-    },{
-      text: 'redis',
-      link: '/md/redis/redis'
     }
   ]
   },

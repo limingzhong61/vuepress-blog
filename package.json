@@ -5,7 +5,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "vuepress dev docs --temp .temp",
-    "build": "vuepress build"
+    "build": "vuepress build docs",
+    "docs:build": "vuepress build"
   },
   "keywords": [],
   "author": "",
@@ -797,6 +798,7 @@
     "vuepress-plugin-copyright": "^1.0.2",
     "vuepress-plugin-sitemap": "^2.3.1",
     "vuepress-plugin-smooth-scroll": "^0.0.3",
+    "vuepress-theme-hope": "^1.29.0",
     "watchpack-chokidar2": "^2.0.1",
     "wbuf": "^1.7.3",
     "webpack": "^4.46.0",

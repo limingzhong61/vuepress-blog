@@ -4,19 +4,10 @@ const {
     sideBarTool
 } = require(path.join(__dirname, './utils/sideBarTool.js'))
 
-// 需要排除的一些目录
-let unDirIncludes = ['node_modules', 'assets', 'public', '网络工程']
-// 只需要处理后缀的文件类型
-let SuffixIncludes = ['md', 'html']
-//使用方法生生成侧边栏
-let rootPath = "./docs/md/markdown"
-rootPath = "./docs"
-// 侧边栏  
-// let javaSidebar = sideBarTool.genSideBarGroupMy("./docs/JavaNote", unDirIncludes, SuffixIncludes, {})
-// let jsSidebar = sideBarTool.genSideBarGroupMy("./docs/JSNote", unDirIncludes, SuffixIncludes, {})
-let genMarkDownSideBar = sideBarTool.genSideBarByFiles(rootPath, unDirIncludes, SuffixIncludes, {})
+
 module.exports = {
-    title: '夕月',
+    theme: 'vuepress-theme-hope',
+    title: 'codeOflI',
     description: '从后端到全栈开发',
     head: [
         ['link', {
