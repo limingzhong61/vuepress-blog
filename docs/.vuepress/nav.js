@@ -82,7 +82,7 @@ module.exports = [
       {
         text: 'jquery',
         link: '/md/JSNote/jquery/jquery'
-      },{
+      }, {
         text: 'vue',
         link: '/md/JSNote/vue/vue'
       },
@@ -94,40 +94,49 @@ module.exports = [
         text: 'html-css',
         link: '/md/front-end/html-css/html-css'
       },
-      
+
     ]
-  },{
+  }, {
     text: '数据库',
-    items: [{
-      text: 'MySQL',
-      link: '/md/数据库/MySQL/MySQL'
-    }
-  ]
-  },{
+    items: [ {
+      text: 'SQL 数据库',
+      // link: '/md/JavaNote/Redis/Redis',
+      items: [{
+        text: 'MySQL',
+        link: '/md/数据库/MySQL/MySQL'
+      }]
+    }, {
+      text: 'NoSQL 数据库',
+      // link: '/md/JavaNote/Redis/Redis',
+      items: [{
+        text: 'SpringCloud',
+        link: '/md/JavaNote/Redis/Redis',
+      }]
+    }]
+  }, {
     text: '其他',
     items: [{
       text: 'docker',
       link: '/md/docker/docker'
-    },{
+    }, {
       text: 'git',
       link: '/md/git/git'
-    },{
+    }, {
       text: 'hexo',
       link: '/md/hexo/hexo'
-    },{
+    }, {
       text: 'linux',
       link: '/md/linux/linux'
-    },{
+    }, {
       text: 'Markdown',
       link: '/md/Markdown/Markdown'
-    },{
+    }, {
       text: 'nginx',
       link: '/md/nginx/nginx'
-    }
-  ]
+    }]
   },
   {
     text: 'Github',
-    link: 'https://github.com/codeOflI/vuepress-blog'
+    link: 'https://github.com/codeOflI/LearningNotes'
   },
 ]

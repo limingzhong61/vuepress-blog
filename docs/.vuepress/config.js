@@ -3,12 +3,14 @@ const path = require('path')
 const {
     sideBarTool
 } = require(path.join(__dirname, './utils/sideBarTool.js'))
-
+// const {
+//     hopeTheme
+// } = require("vuepress-theme-hope");
 
 module.exports = {
-    theme: 'vuepress-theme-hope',
+    theme: "vuepress-theme-hope",
     title: 'codeOflI',
-    description: '从后端到全栈开发',
+    description: '编程学习者',
     head: [
         ['link', {
             rel: 'icon',
@@ -42,7 +44,7 @@ module.exports = {
         searchMaxSuggestions: 15,
         nav: require('./nav'),
         sidebar: sideBarTool.genSideBarConfig()
-        
+
         // sidebar: {
         //     '/md/Markdown/': [{
         //         title: 'Markdown',
