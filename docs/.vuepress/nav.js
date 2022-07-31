@@ -11,10 +11,10 @@ module.exports = [
   {
     text: 'Java',
     items: [{
-      text: 'java基础',
+      text: 'Java基础',
       items: [{
-          text: 'java基础',
-          link: '/md/JavaNote/java基础/java基础'
+          text: 'Java基础',
+          link: '/md/JavaNote/Java基础/Java基础'
         },
         {
           text: 'OnJava8',
@@ -100,7 +100,7 @@ module.exports = [
     text: '数据库',
     items: [ {
       text: 'SQL 数据库',
-      // link: '/md/JavaNote/Redis/Redis',
+      // link: '/md/JavaNote/MySQL/MySQL',
       items: [{
         text: 'MySQL',
         link: '/md/数据库/MySQL/MySQL'
@@ -109,11 +109,32 @@ module.exports = [
       text: 'NoSQL 数据库',
       // link: '/md/JavaNote/Redis/Redis',
       items: [{
-        text: 'SpringCloud',
+        text: 'Redis',
         link: '/md/JavaNote/Redis/Redis',
       }]
     }]
   }, {
+    text: '其他',
+    items: [{
+      text: 'docker',
+      link: '/md/docker/docker'
+    }, {
+      text: 'git',
+      link: '/md/git/git'
+    }, {
+      text: 'hexo',
+      link: '/md/hexo/hexo'
+    }, {
+      text: 'linux',
+      link: '/md/linux/linux'
+    }, {
+      text: 'Markdown',
+      link: '/md/Markdown/Markdown'
+    }, {
+      text: 'nginx',
+      link: '/md/nginx/nginx'
+    }]
+  },{
     text: '其他',
     items: [{
       text: 'docker',

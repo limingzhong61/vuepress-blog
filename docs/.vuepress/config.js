@@ -20,7 +20,21 @@ module.exports = {
             rel: 'stylesheet',
             href: '/css/style.css'
         }],
+        ['link', {
+            rel: 'stylesheet',
+            href: 'https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css'
+        }],
+        ['link', {
+            rel: "stylesheet",
+            href: "https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/2.10.0/github-markdown.min.css"
+        }]
     ],
+    extendMarkdown(md) {
+        md.set({
+            html: true
+        });
+        md.use(require("markdown-it-katex"));
+    },
     markdown: {
         lineNumbers: true,
         // markdown-it-anchor 的选项
@@ -69,15 +83,20 @@ module.exports = {
             locale: 'zh-CN',
             // 其他的 Vssue 配置
             owner: 'codeOflI',
-            repo: 'vssue-local-test',
-            clientId: 'f20f176ac06dd11b4cfb',
-            clientSecret: '0283dfbfcaf67c7dcef198f82ea83f62d3f016bd',
+            //yestojudge.cn           
+            repo: 'vssue-vuepress-blog',
+            clientId: 'cff9de1e483a8af52eb4',
+            clientSecret: '595c47f88560ad066e434f2161427d11d5ac3711',
+            //localhot:8080
+            // repo: 'vssue-local-test',
+            // clientId: 'f20f176ac06dd11b4cfb',
+            // clientSecret: '0283dfbfcaf67c7dcef198f82ea83f62d3f016bd',
         },
         'copyright': {
 
             noCopy: false, // 允许复制内容
             minLength: 100, // 如果长度超过 100 个字符
-            authorName: "夕月",
+            authorName: "codeOflI",
         },
         'sitemap': {
             hostname: 'http://localhost:8080'
